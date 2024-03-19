@@ -1,4 +1,5 @@
 FROM node:lts-buster
+
 RUN apt-get update && \
   apt-get install -y \
   ffmpeg \
@@ -6,7 +7,11 @@ RUN apt-get update && \
   webp && \
   apt-get upgrade -y && \
   rm -rf /var/lib/apt/lists/*
-RUN git clone https://github.com/Abdullasl321/CheemsBot-MD8/ /beta
-WORKDIR /beta
+
+COPY package.json .
+
 RUN npm install
-CMD ["node", "index.js"]
+
+COPY . .
+
+CMD ["node", "."]
